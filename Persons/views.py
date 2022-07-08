@@ -1,15 +1,14 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
-from django.contrib.auth.models import User,Group
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import PersonSerializer
+from .models import People
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset=User.objects.all().order_by('-date_joined')
-    serializer_class=UserSerializer
-    permission_classes=[permissions.IsAuthenticated]
+@api_view(["GET"])
+def list_people(request):
+    people=People.objects.all()
+    serializer=PersonSerializer(people, many=True)
+    content={
+        "people":serializer.data,
+    }
 
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset=Group.objects.all()
-    serializer_class=GroupSerializer
-    permission_classes=[permissions.IsAuthenticated]
+    return Response(content)

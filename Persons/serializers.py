@@ -1,15 +1,7 @@
-from dataclasses import fields
-from importlib.metadata import files
-from pyexpat import model
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from .models import People
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class PersonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields= ['url','username','email','groups']
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model=Group
-        fields=['url', 'name']
+        model=People
+        fields=['id', 'first', 'last', 'title']
