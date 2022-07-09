@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Persons',
     'artifacts',
     'books',
+    'vehicles',
 ]
 
 MIDDLEWARE = [
